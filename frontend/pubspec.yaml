@@ -2,7 +2,7 @@ name: frontend
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -34,43 +34,55 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
-  
+
   # State Management
   flutter_riverpod: ^2.4.9
-  
+
   # Health Data
   health: ^10.2.0
-  
+
   # Local Storage
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  
-  # In-App Purchase
-  in_app_purchase: ^3.1.11
-  
+
+  # In-App Purchase (temporarily disabled due to iOS compatibility issues)
+  # in_app_purchase: ^3.2.0
+
   # Networking & HTTP
   http: ^1.1.0
-  
+
   # Date & Time utilities
   intl: ^0.19.0
-  
-  # Ads
-  google_mobile_ads: ^5.0.0
-  
+
+  # Ads (temporarily disabled due to initialization issues)
+  # google_mobile_ads: ^5.0.0
+
   # Permissions
   permission_handler: ^11.1.0
-  
+
   # Connectivity
   connectivity_plus: ^5.0.2
-  
+
   # Path provider for local storage
   path_provider: ^2.1.1
-  
+
   # JSON serialization
   json_annotation: ^4.8.1
-  
+
   # Shared preferences
   shared_preferences: ^2.2.2
+
+  # Equatable for value equality
+  equatable: ^2.0.5
+
+  # Freezed for immutable data classes
+  freezed_annotation: ^2.4.1
+
+  # Go Router for navigation
+  go_router: ^14.2.7
+
+  # Riverpod Generator for state management
+  riverpod_annotation: ^2.3.5
 
 dev_dependencies:
   flutter_test:
@@ -82,12 +94,21 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
-  
+
   # Code Generation
   build_runner: ^2.4.7
   hive_generator: ^2.0.1
   json_serializable: ^6.7.1
-  
+
+  # Freezed for code generation
+  freezed: ^2.5.7
+
+  # Go Router Builder for route generation
+  go_router_builder: ^2.7.1
+
+  # Riverpod Generator for state management
+  riverpod_generator: ^2.4.3
+
   # Testing
   mockito: ^5.4.2
 
@@ -96,7 +117,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
