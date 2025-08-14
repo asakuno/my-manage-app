@@ -1,35 +1,51 @@
-/// アプリケーション全体で使用される定数を定義
+/// アプリケーション全体で使用される定数クラス
 class AppConstants {
-  // アプリ基本情報
+  AppConstants._();
+
+  /// アプリ名
   static const String appName = 'Health Activity Visualization';
+
+  /// アプリバージョン
   static const String appVersion = '1.0.0';
 
-  // デフォルト設定
+  /// デフォルトの歩数目標
   static const int defaultStepGoal = 8000;
-  static const int minStepGoal = 1000;
-  static const int maxStepGoal = 50000;
 
-  // アクティビティレベルの閾値（歩数）
+  /// アクティビティレベルの閾値
   static const List<int> activityLevelThresholds = [
-    2000, // Level 1: 0-2000歩
-    5000, // Level 2: 2001-5000歩
-    8000, // Level 3: 5001-8000歩
-    12000, // Level 4: 8001歩以上
+    2000, // low
+    5000, // medium
+    8000, // high
+    12000, // very high
   ];
 
-  // データ同期設定
-  static const Duration syncInterval = Duration(hours: 1);
-  static const Duration cacheExpiration = Duration(days: 7);
+  /// 最大友達数（無料プラン）
+  static const int maxFriendsCountFree = 10;
 
-  // UI設定
-  static const int calendarDaysToShow = 365;
-  static const double activityCellSize = 12.0;
-  static const double activityCellSpacing = 2.0;
+  /// 最大友達数（プレミアムプラン）
+  static const int maxFriendsCountPremium = 50;
 
-  // 友達機能制限
-  static const int freeTierFriendLimit = 10;
-  static const int premiumTierFriendLimit = 50;
+  /// データ同期間隔（分）
+  static const int syncIntervalMinutes = 15;
 
-  // プライベートコンストラクタ（インスタンス化を防ぐ）
-  AppConstants._();
+  /// ローカルデータ保持期間（日）
+  static const int dataRetentionDays = 365;
+
+  /// API タイムアウト（秒）
+  static const int apiTimeoutSeconds = 30;
+
+  /// 最小歩数目標
+  static const int minStepGoal = 1000;
+
+  /// 最大歩数目標
+  static const int maxStepGoal = 50000;
+
+  /// デフォルトのプライバシーレベル
+  static const String defaultPrivacyLevel = 'friends';
+
+  /// サポートされる言語
+  static const List<String> supportedLanguages = ['en', 'ja'];
+
+  /// デフォルト言語
+  static const String defaultLanguage = 'en';
 }
