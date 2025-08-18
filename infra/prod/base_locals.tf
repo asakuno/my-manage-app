@@ -1,0 +1,1 @@
+/Users/peten4/project/photon/infra/base_locals.tf
