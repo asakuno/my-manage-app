@@ -34,7 +34,7 @@ data "aws_iam_policy_document" "github_actions_assume_role" {
 
     principals {
       type        = "Federated"
-      identifiers = [data.terraform_remote_state.root.outputs.github_actions_oidc_provider_arn]
+      identifiers = [aws_iam_openid_connect_provider.github_actions.arn]
     }
 
     condition {
@@ -79,7 +79,7 @@ data "aws_iam_policy_document" "github_actions_deploy" {
       "ecr:UploadLayerPart",
       "ecr:CompleteLayerUpload",
     ]
-    resources = ["*"]
+    resources = ["arn:aws:ecr:ap-northeast-1:*:repository/my-manage-app/"]
   }
 
   statement {
@@ -90,7 +90,7 @@ data "aws_iam_policy_document" "github_actions_deploy" {
       "ecs:RegisterTaskDefinition",
       "ecs:DescribeTaskDefinition",
     ]
-    resources = ["*"]
+    resources = ["arn:aws:ecr:ap-northeast-1:*:repository/my-manage-app/"]
   }
 
   statement {
