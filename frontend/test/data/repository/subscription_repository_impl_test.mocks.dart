@@ -56,6 +56,16 @@ class MockSubscriptionLocalDataSource extends _i1.Mock
       ) as _i3.Future<void>);
 
   @override
+  _i3.Future<void> initializeForTest() => (super.noSuchMethod(
+        Invocation.method(
+          #initializeForTest,
+          [],
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+
+  @override
   _i3.Future<void> saveSubscriptionStatus(_i4.SubscriptionStatus? status) =>
       (super.noSuchMethod(
         Invocation.method(
