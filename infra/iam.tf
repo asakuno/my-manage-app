@@ -20,8 +20,9 @@ resource "aws_iam_openid_connect_provider" "github_actions" {
 # =====================================================================
 locals {
   github_actions_repo = local.repository
-  github_actions_branches = [
-    "refs/heads/main",
+  github_actions_conditions = [
+    "repo:${local.repository}:ref:refs/heads/main",
+    "repo:${local.repository}:ref:refs/tags/base-v*",
   ]
 }
 
@@ -46,10 +47,7 @@ data "aws_iam_policy_document" "github_actions_assume_role" {
     condition {
       test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
-      values = [
-        for branch in local.github_actions_branches :
-        "repo:${local.github_actions_repo}:ref:${branch}"
-      ]
+      values   = local.github_actions_conditions
     }
   }
 }
