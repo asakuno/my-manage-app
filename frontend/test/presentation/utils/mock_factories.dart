@@ -1,0 +1,284 @@
+import 'package:mockito/mockito.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Domain layer mocks - only include existing use cases
+import 'package:frontend/domain/health/usecase/get_step_data_usecase.dart';
+import 'package:frontend/domain/health/usecase/calculate_activity_level_usecase.dart';
+import 'package:frontend/domain/health/usecase/sync_health_data_usecase.dart';
+
+// Data layer mocks - only include existing implementations
+import 'package:frontend/data/repository/health_repository_impl.dart';
+import 'package:frontend/data/local/health_local_data_source.dart';
+import 'package:frontend/data/api/health_api_data_source.dart';
+
+// Social-related mocks
+import 'package:frontend/domain/social/usecase/add_friend_usecase.dart';
+import 'package:frontend/domain/social/usecase/get_friends_ranking_usecase.dart';
+import 'package:frontend/data/repository/social_repository_impl.dart';
+import 'package:frontend/data/local/user_preferences_data_source.dart';
+
+/// Centralized factory for creating and configuring mocks
+class MockFactories {
+  // Health-related mocks
+  static MockHealthRepositoryImpl? _mockHealthRepository;
+  static MockHealthLocalDataSource? _mockHealthLocalDataSource;
+  static MockHealthApiDataSource? _mockHealthApiDataSource;
+  static MockGetStepDataUseCase? _mockGetStepDataUseCase;
+  static MockCalculateActivityLevelUseCase? _mockCalculateActivityLevelUseCase;
+  static MockSyncHealthDataUseCase? _mockSyncHealthDataUseCase;
+
+  /// Creates or returns existing health repository mock
+  static MockHealthRepositoryImpl createHealthRepository() {
+    return _mockHealthRepository ??= MockHealthRepositoryImpl();
+  }
+
+  /// Creates or returns existing health local data source mock
+  static MockHealthLocalDataSource createHealthLocalDataSource() {
+    return _mockHealthLocalDataSource ??= MockHealthLocalDataSource();
+  }
+
+  /// Creates or returns existing health API data source mock
+  static MockHealthApiDataSource createHealthApiDataSource() {
+    return _mockHealthApiDataSource ??= MockHealthApiDataSource();
+  }
+
+  /// Creates or returns existing get step data use case mock
+  static MockGetStepDataUseCase createGetStepDataUseCase() {
+    return _mockGetStepDataUseCase ??= MockGetStepDataUseCase();
+  }
+
+  /// Creates or returns existing calculate activity level use case mock
+  static MockCalculateActivityLevelUseCase
+  createCalculateActivityLevelUseCase() {
+    return _mockCalculateActivityLevelUseCase ??=
+        MockCalculateActivityLevelUseCase();
+  }
+
+  /// Creates or returns existing sync health data use case mock
+  static MockSyncHealthDataUseCase createSyncHealthDataUseCase() {
+    return _mockSyncHealthDataUseCase ??= MockSyncHealthDataUseCase();
+  }
+
+  /// Creates a complete set of health-related provider overrides
+  /// Note: Provider references would need to be imported from the actual provider files
+  static List<Override> createHealthProviderOverrides({
+    MockHealthRepositoryImpl? healthRepository,
+    MockGetStepDataUseCase? getStepDataUseCase,
+    MockCalculateActivityLevelUseCase? calculateActivityLevelUseCase,
+    MockSyncHealthDataUseCase? syncHealthDataUseCase,
+  }) {
+    // This would be populated with actual provider overrides when providers are available
+    return <Override>[];
+  }
+
+  /// Resets all health-related mocks
+  static void resetHealthMocks() {
+    if (_mockHealthRepository != null) {
+      reset(_mockHealthRepository!);
+    }
+    if (_mockHealthLocalDataSource != null) {
+      reset(_mockHealthLocalDataSource!);
+    }
+    if (_mockHealthApiDataSource != null) {
+      reset(_mockHealthApiDataSource!);
+    }
+    if (_mockGetStepDataUseCase != null) {
+      reset(_mockGetStepDataUseCase!);
+    }
+    if (_mockCalculateActivityLevelUseCase != null) {
+      reset(_mockCalculateActivityLevelUseCase!);
+    }
+    if (_mockSyncHealthDataUseCase != null) {
+      reset(_mockSyncHealthDataUseCase!);
+    }
+  }
+
+  /// Resets all mocks
+  static void resetAllMocks() {
+    resetHealthMocks();
+    SocialMockFactories.resetSocialMocks();
+  }
+
+  /// Clears all cached mock instances (forces recreation on next access)
+  static void clearAllMocks() {
+    // Health mocks
+    _mockHealthRepository = null;
+    _mockHealthLocalDataSource = null;
+    _mockHealthApiDataSource = null;
+    _mockGetStepDataUseCase = null;
+    _mockCalculateActivityLevelUseCase = null;
+    _mockSyncHealthDataUseCase = null;
+
+    // Social mocks
+    SocialMockFactories.clearSocialMocks();
+  }
+
+  /// Creates a provider container with common overrides
+  static ProviderContainer createTestContainer({
+    List<Override> additionalOverrides = const [],
+    bool includeHealthMocks = true,
+  }) {
+    final overrides = <Override>[];
+
+    if (includeHealthMocks) {
+      overrides.addAll(createHealthProviderOverrides());
+    }
+
+    overrides.addAll(additionalOverrides);
+
+    return ProviderContainer(overrides: overrides);
+  }
+}
+
+/// Mock class definitions
+/// Note: These would typically be generated by mockito, but are included here for reference
+
+class MockHealthRepositoryImpl extends Mock implements HealthRepositoryImpl {}
+
+class MockHealthLocalDataSource extends Mock implements HealthLocalDataSource {}
+
+class MockHealthApiDataSource extends Mock implements HealthApiDataSource {}
+
+class MockGetStepDataUseCase extends Mock implements GetStepDataUseCase {}
+
+class MockCalculateActivityLevelUseCase extends Mock
+    implements CalculateActivityLevelUseCase {}
+
+class MockSyncHealthDataUseCase extends Mock implements SyncHealthDataUseCase {}
+
+/// Configuration class for mock behaviors
+class MockConfig {
+  /// Configures common success behaviors for health mocks
+  static void configureHealthSuccessBehaviors({
+    MockGetStepDataUseCase? getStepDataUseCase,
+    MockCalculateActivityLevelUseCase? calculateActivityLevelUseCase,
+    MockSyncHealthDataUseCase? syncHealthDataUseCase,
+  }) {
+    // Configure default success behaviors here
+    // This would be implemented based on the actual use case interfaces
+  }
+
+  /// Configures common error behaviors for health mocks
+  static void configureHealthErrorBehaviors({
+    MockGetStepDataUseCase? getStepDataUseCase,
+    MockCalculateActivityLevelUseCase? calculateActivityLevelUseCase,
+    MockSyncHealthDataUseCase? syncHealthDataUseCase,
+    String errorMessage = 'Test error',
+  }) {
+    // Configure default error behaviors here
+    // This would be implemented based on the actual use case interfaces
+  }
+}
+
+/// Social mock factories extension
+extension SocialMockFactories on MockFactories {
+  // Social-related mocks
+  static MockAddFriendUseCase? _mockAddFriendUseCase;
+  static MockGetFriendsRankingUseCase? _mockGetFriendsRankingUseCase;
+  static MockSocialRepositoryImpl? _mockSocialRepository;
+  static MockUserPreferencesDataSource? _mockUserPreferencesDataSource;
+
+  /// Creates or returns existing add friend use case mock
+  static MockAddFriendUseCase createAddFriendUseCase() {
+    return _mockAddFriendUseCase ??= MockAddFriendUseCase();
+  }
+
+  /// Creates or returns existing get friends ranking use case mock
+  static MockGetFriendsRankingUseCase createGetFriendsRankingUseCase() {
+    return _mockGetFriendsRankingUseCase ??= MockGetFriendsRankingUseCase();
+  }
+
+  /// Creates or returns existing social repository mock
+  static MockSocialRepositoryImpl createSocialRepository() {
+    return _mockSocialRepository ??= MockSocialRepositoryImpl();
+  }
+
+  /// Creates or returns existing user preferences data source mock
+  static MockUserPreferencesDataSource createUserPreferencesDataSource() {
+    return _mockUserPreferencesDataSource ??= MockUserPreferencesDataSource();
+  }
+
+  /// Creates a complete set of social-related provider overrides
+  static List<Override> createSocialProviderOverrides({
+    MockAddFriendUseCase? addFriendUseCase,
+    MockGetFriendsRankingUseCase? getFriendsRankingUseCase,
+    MockSocialRepositoryImpl? socialRepository,
+    MockUserPreferencesDataSource? userPreferencesDataSource,
+  }) {
+    // This would be populated with actual provider overrides when providers are available
+    return <Override>[];
+  }
+
+  /// Resets all social-related mocks
+  static void resetSocialMocks() {
+    if (_mockAddFriendUseCase != null) {
+      reset(_mockAddFriendUseCase!);
+    }
+    if (_mockGetFriendsRankingUseCase != null) {
+      reset(_mockGetFriendsRankingUseCase!);
+    }
+    if (_mockSocialRepository != null) {
+      reset(_mockSocialRepository!);
+    }
+    if (_mockUserPreferencesDataSource != null) {
+      reset(_mockUserPreferencesDataSource!);
+    }
+  }
+
+  /// Clears all cached social mock instances
+  static void clearSocialMocks() {
+    _mockAddFriendUseCase = null;
+    _mockGetFriendsRankingUseCase = null;
+    _mockSocialRepository = null;
+    _mockUserPreferencesDataSource = null;
+  }
+
+  /// Creates a provider container with social overrides
+  static ProviderContainer createSocialTestContainer({
+    List<Override> additionalOverrides = const [],
+    bool includeSocialMocks = true,
+  }) {
+    final overrides = <Override>[];
+
+    if (includeSocialMocks) {
+      overrides.addAll(createSocialProviderOverrides());
+    }
+
+    overrides.addAll(additionalOverrides);
+
+    return ProviderContainer(overrides: overrides);
+  }
+}
+
+/// Social mock class definitions
+class MockAddFriendUseCase extends Mock implements AddFriendUseCase {}
+
+class MockGetFriendsRankingUseCase extends Mock
+    implements GetFriendsRankingUseCase {}
+
+class MockSocialRepositoryImpl extends Mock implements SocialRepositoryImpl {}
+
+class MockUserPreferencesDataSource extends Mock
+    implements UserPreferencesDataSource {}
+
+/// Social mock configuration
+extension SocialMockConfig on MockConfig {
+  /// Configures common success behaviors for social mocks
+  static void configureSocialSuccessBehaviors({
+    MockAddFriendUseCase? addFriendUseCase,
+    MockGetFriendsRankingUseCase? getFriendsRankingUseCase,
+  }) {
+    // Configure default success behaviors here
+    // This would be implemented based on the actual use case interfaces
+  }
+
+  /// Configures common error behaviors for social mocks
+  static void configureSocialErrorBehaviors({
+    MockAddFriendUseCase? addFriendUseCase,
+    MockGetFriendsRankingUseCase? getFriendsRankingUseCase,
+    String errorMessage = 'Test error',
+  }) {
+    // Configure default error behaviors here
+    // This would be implemented based on the actual use case interfaces
+  }
+}
