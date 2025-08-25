@@ -34,8 +34,8 @@ jobs:
           role-session-name: GitHubActions-${{ github.run_id }}
           mask-aws-account-id: true
 
-      - name: get_caller_identify
-        run: aws sts get-caller-identify
+      - name: get_caller_identity
+        run: aws sts get-caller-identity
 
       - name: login ecr
         run: aws-actions/amazon-ecr-login@v1
